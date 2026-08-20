@@ -47,6 +47,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/hospital-pms-github-deploy-role
+          role-session-name: GitHubActionsECSDeployment
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Terraform fmt check
@@ -84,6 +85,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/hospital-pms-github-deploy-role 
+          role-session-name: GitHubActionsECSDeployment
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Terraform init
@@ -184,6 +186,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/hospital-pms-github-deploy-role
+          role-session-name: GitHubActionsECSDeployment
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Terraform init
