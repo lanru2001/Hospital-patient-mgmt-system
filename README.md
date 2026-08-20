@@ -1,5 +1,3 @@
-# Deploy Hospital Patient Management System
-
 # Hospital Patient Management System
 
 FastAPI + React + AWS ECS Fargate + Terraform + GitHub Actions.
