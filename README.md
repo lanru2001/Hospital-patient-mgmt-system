@@ -157,8 +157,8 @@ hospital-pms/
 # GitHub repo Secrets (Settings → Secrets and variables → Actions → Secrets tab)
 ```bash
 Name	            Value
-AWS_ACCOUNT_ID |	  Your 12-digit AWS account ID, e.g. 123456789012
-DOMAIN_NAME	    |   Your API domain, e.g. api.yourhospital.com — or leave it empty if you don't have one yet
+AWS_ACCOUNT_ID |	 12-digit AWS account ID, e.g. 123456789012
+DOMAIN_NAME	   |   API domain, e.g. api.yourhospital.com — or leave it empty if you don't have one yet
 
 That's the complete list for terraform.yml. Everything else it needs (github_repo) is filled in automatically from ${{ github.repository }}.
 ```
