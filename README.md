@@ -83,7 +83,7 @@ real PHI you still need, at minimum:
 - Add GuardDuty + Security Hub for continuous monitoring.
 - Split staging/production into separate Terraform workspaces or state files.
 
-Project layout
+## Project layout
 ```bash
 hospital-pms/
 ├── README.md
