@@ -4,13 +4,13 @@ on:
   push:
     branches: [main]
     paths:
-      - "terraform/**"
-      - ".github/workflows/terraform.yml"
+      - "iac/**"
+      - ".github/workflows/iac.yml"
   pull_request:
     branches: [main]
     paths:
       - "terraform/**"
-      - ".github/workflows/terraform.yml"
+      - ".github/workflows/iac.yml"
   workflow_dispatch:
     inputs:
       action:
@@ -28,7 +28,7 @@ permissions:
 env:
   AWS_REGION: us-east-1
   TF_VERSION: "1.9.5"
-  TF_WORKING_DIR: terraform
+  TF_WORKING_DIR: iac
 
 jobs:
   fmt-and-validate:
