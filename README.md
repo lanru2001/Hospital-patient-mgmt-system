@@ -84,6 +84,7 @@ real PHI you still need, at minimum:
 - Split staging/production into separate Terraform workspaces or state files.
 
 Project layout
+```bash
 hospital-pms/
 ├── README.md
 ├── requirements.txt              # backend Python deps
@@ -151,3 +152,4 @@ hospital-pms/
 └── .github/
     └── workflows/
         └── deploy.yml             # test → scan → deploy backend + deploy frontend
+```
