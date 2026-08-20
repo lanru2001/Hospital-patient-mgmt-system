@@ -59,10 +59,12 @@ jobs:
         run: terraform validate
 
       - name: tfsec scan
-        uses: aquasecurity/tfsec-action@v1.0.3
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
-          working_directory: ${{ env.TF_WORKING_DIR }}
-          soft_fail: true # don't block on findings yet — review and tighten over time
+          scan-type: config
+          scan-ref: ${{ env.TF_WORKING_DIR }}
+          severity: CRITICAL,HIGH
+          exit-code: "0" # soft fail — review findings without blocking, tighten later
 
   plan:
     runs-on: ubuntu-latest
