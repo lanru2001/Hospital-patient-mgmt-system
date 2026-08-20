@@ -154,7 +154,7 @@ hospital-pms/
         └── deploy.yml             # test → scan → deploy backend + deploy frontend
 ```
 
-# GitHub repo Secrets (Settings → Secrets and variables → Actions → Secrets tab)
+## GitHub repo Secrets (Settings → Secrets and variables → Actions → Secrets tab)
 ```bash
 Name	            Value
 AWS_ACCOUNT_ID |	12-digit AWS account ID, e.g. 123456789012
