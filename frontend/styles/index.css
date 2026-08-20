@@ -1,0 +1,486 @@
+/* ---------------------------------------------------------------------
+   Design tokens
+   Palette: cool clinical whites/grays with a single deep-teal accent.
+   Deliberately avoiding the warm cream+terracotta and dark+neon defaults.
+   Signature: patients render like chart tabs — a colored edge marker
+   (allergy status) and identifiers set in mono, like a printed wristband.
+   ------------------------------------------------------------------- */
+:root {
+  --bg: #F5F8F9;
+  --surface: #FFFFFF;
+  --surface-sunken: #EEF2F4;
+  --line: #D5DEE2;
+  --line-strong: #B7C4CA;
+  --ink: #16232E;
+  --ink-soft: #4C5C66;
+  --ink-faint: #7E8D96;
+  --teal: #0F6E63;
+  --teal-dark: #0B5148;
+  --teal-tint: #E4F1EE;
+  --amber: #9A6B12;
+  --amber-tint: #FBF1DD;
+  --red: #B3261E;
+  --red-tint: #FBE9E7;
+  --radius: 6px;
+  --font-display: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", monospace;
+  --shadow-card: 0 1px 2px rgba(22, 35, 46, 0.06), 0 1px 1px rgba(22, 35, 46, 0.04);
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+a { color: inherit; }
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+/* ---------- layout shell ---------- */
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+
+.topbar__mark {
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  background: var(--teal);
+  position: relative;
+  flex-shrink: 0;
+}
+.topbar__mark::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 5px;
+  width: 14px;
+  height: 2px;
+  background: var(--teal-tint);
+  box-shadow: 0 5px 0 var(--teal-tint), 0 10px 0 var(--teal-tint);
+}
+
+.topbar__user {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.role-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  background: var(--teal-tint);
+  color: var(--teal-dark);
+  border: 1px solid var(--teal);
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  cursor: pointer;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  padding: 0;
+}
+.btn-link:hover { color: var(--ink); }
+
+.main-area {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  padding: 0.55rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.btn-primary {
+  background: var(--teal);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--teal-dark); }
+.btn-primary:disabled { background: var(--line-strong); cursor: not-allowed; }
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+.btn-secondary:hover { background: var(--surface-sunken); }
+
+.btn-danger {
+  background: var(--surface);
+  color: var(--red);
+  border-color: var(--red);
+}
+.btn-danger:hover { background: var(--red-tint); }
+
+/* ---------- forms ---------- */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.9rem;
+}
+
+.field label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.field input,
+.field select,
+.field textarea {
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: 0.55rem 0.7rem;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--teal);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1rem;
+}
+
+.error-banner {
+  background: var(--red-tint);
+  color: var(--red);
+  border: 1px solid var(--red);
+  border-radius: var(--radius);
+  padding: 0.65rem 0.9rem;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+/* ---------- login page ---------- */
+
+.login-screen {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(var(--surface-sunken) 1px, transparent 1px) 0 0 / 100% 42px,
+    var(--bg);
+  padding: 1.5rem;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 360px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 2rem 1.9rem;
+  box-shadow: var(--shadow-card);
+}
+
+.login-card h1 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin: 0 0 0.15rem;
+  letter-spacing: -0.01em;
+}
+
+.login-card .subtitle {
+  color: var(--ink-faint);
+  font-size: 0.85rem;
+  margin: 0 0 1.5rem;
+}
+
+/* ---------- patient list (chart tabs) ---------- */
+
+.list-pane {
+  width: 380px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--line);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+}
+
+.list-pane__header {
+  padding: 1rem 1.1rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.list-pane__header h2 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  margin: 0 0 0.7rem;
+}
+
+.search-input {
+  width: 100%;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.7rem;
+  font-size: 0.85rem;
+  background: var(--surface-sunken);
+}
+
+.chart-list {
+  flex: 1;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.chart-tab {
+  --tab-color: var(--line-strong);
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--tab-color);
+  border-radius: 5px;
+  padding: 0.65rem 0.8rem;
+  cursor: pointer;
+  transition: border-color 0.1s ease, background 0.1s ease;
+}
+
+.chart-tab.has-allergy { --tab-color: var(--red); }
+.chart-tab.is-active {
+  background: var(--teal-tint);
+  border-color: var(--teal);
+  border-left-color: var(--teal);
+}
+.chart-tab:hover:not(.is-active) { background: var(--surface-sunken); }
+
+.chart-tab__name {
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.chart-tab__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.02em;
+}
+
+.chart-tab__allergy-flag {
+  color: var(--red);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.72rem;
+}
+
+.list-pane__empty, .detail-pane__empty {
+  padding: 2rem 1.5rem;
+  color: var(--ink-faint);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* ---------- detail pane ---------- */
+
+.detail-pane {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.75rem 2.25rem;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.wristband {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  background: var(--surface-sunken);
+  border: 1px dashed var(--line-strong);
+  border-radius: 4px;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 0.4rem;
+}
+
+.chart-header h1 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.allergy-banner {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  background: var(--red-tint);
+  border: 1px solid var(--red);
+  color: var(--red);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.9rem;
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+.allergy-banner strong { font-weight: 700; }
+
+.record-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.1rem 2rem;
+  margin-bottom: 1.75rem;
+}
+
+.record-field .k {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-faint);
+  margin-bottom: 0.2rem;
+}
+.record-field .v {
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+.record-field .v.mono { font-family: var(--font-mono); }
+.record-field .v.empty { color: var(--ink-faint); font-style: italic; }
+
+.section-label {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  margin: 0 0 0.6rem;
+}
+
+.notes-block {
+  background: var(--surface-sunken);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+/* ---------- form page ---------- */
+
+.form-page {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.75rem 2.25rem;
+  max-width: 640px;
+}
+
+.form-page h1 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  margin: 0 0 1.25rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1.2rem;
+}
+
+@media (max-width: 800px) {
+  .main-area { flex-direction: column; }
+  .list-pane { width: 100%; max-height: 40vh; border-right: none; border-bottom: 1px solid var(--line); }
+  .record-grid { grid-template-columns: 1fr; }
+}
