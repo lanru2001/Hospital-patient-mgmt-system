@@ -136,7 +136,7 @@ hospital-pms/
 │       └── styles/
 │           └── index.css           # design tokens + all component styles
 │
-├── Iac/                    # infrastructure as code
+├── iac/                    # infrastructure as code
 │   ├── main.tf                    # provider, backend (S3 state), data sources
 │   ├── variables.tf                # all input variables
 │   ├── vpc.tf                      # VPC, public/private subnets, NAT, security groups
