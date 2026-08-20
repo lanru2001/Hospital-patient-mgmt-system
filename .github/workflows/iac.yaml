@@ -9,7 +9,7 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - "terraform/**"
+      - "iac/**"
       - ".github/workflows/iac.yml"
   workflow_dispatch:
     inputs:
